@@ -86,6 +86,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="extra"
+        android:lines="2"
+
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:maxLines="3"
+
         android:textColor="#4c4c4c"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/extraIng"
@@ -144,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="150dp"
-        android:text="fiyat"
+        android:text="total"
         android:textColor="#4c4c4c"
         android:textSize="24sp"
         android:textStyle="bold"
