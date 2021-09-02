@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CoffeeApp</string>
+    <color name="background">#6989C9</color>
+    <color name="btnColor">#E27D31</color>
+    <color name="lightText">#4c4c4c</color>
+
+</resources>
