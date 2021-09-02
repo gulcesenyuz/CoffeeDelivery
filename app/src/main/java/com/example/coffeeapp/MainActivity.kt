@@ -7,6 +7,8 @@ import android.widget.*
 class MainActivity : AppCompatActivity() {
 
     var total: Double = 10.0
+    var lastTotal: Double = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -83,12 +85,10 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-
                 price.text = total.toString()
 
 
-                //TODO
-            } else {
+          } else {
                 if(checked1.isChecked){
                     checked1.toggle()
 
@@ -199,6 +199,12 @@ class MainActivity : AppCompatActivity() {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     val seekBarTexti: TextView = findViewById(R.id.num)
                     seekBarTexti.setText("Number: $p1")
+                    lastTotal =total.times(p1)
+
+                    price.text = lastTotal.toString()
+
+                    println("//////////////////$lastTotal")
+
                 }
 
                 override fun onStartTrackingTouch(seek: SeekBar) {
