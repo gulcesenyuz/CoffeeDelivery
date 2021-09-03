@@ -7,15 +7,16 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-
 class MainActivity : AppCompatActivity() {
 
     var total: Double = 10.0
-    var lastTotal: Double = 0.0
     lateinit var radioButton: RadioButton
     var checkedExtras = ArrayList<String>()
     var number: Int=0
-
+    lateinit var checked1: CheckBox
+    lateinit var checked2: CheckBox
+    lateinit var checked3: CheckBox
+    lateinit var checked4: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -25,125 +26,81 @@ class MainActivity : AppCompatActivity() {
         val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
         val price: TextView = findViewById(R.id.price)
         val seek = findViewById<SeekBar>(R.id.seekBar)
-        var checked1: CheckBox = findViewById(R.id.sugarbutton)
-        var checked2: CheckBox = findViewById(R.id.creambutton)
-        var checked3: CheckBox = findViewById(R.id.nutbutton)
-        var checked4: CheckBox = findViewById(R.id.mintbutton)
-
+        checked1= findViewById(R.id.sugarbutton)
+        checked2 = findViewById(R.id.creambutton)
+        checked3= findViewById(R.id.nutbutton)
+        checked4 = findViewById(R.id.mintbutton)
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
-
-            if (checkedId == R.id.tallbutton) {
-                total = 10.0
-                total += 0.0
-                if(checked1.isChecked){
-                    checked1.toggle()
-                    total=10.0
-                }
-                if(checked2.isChecked){
-                    checked2.toggle()
-                    total=10.0
-                }
-                if(checked3.isChecked){
-                    checked3.toggle()
-                    total=10.0
-                }
-                if(checked4.isChecked){
-                    checked4.toggle()
-                    total=10.0
-                }
-                price.text = total.toString()
-                            }
-            else if (checkedId == R.id.grandebutton) {
-                total = 10.0
-                total += 2.5
-                if(checked1.isChecked){
-                    checked1.toggle()
-                    total=12.5
-                }
-                if(checked2.isChecked){
-                    checked2.toggle()
-                    total=12.5
-                }
-                if(checked3.isChecked){
-                    checked3.toggle()
-                    total=12.5
-                }
-                if(checked4.isChecked){
-                    checked4.toggle()
-                    total=12.5
-                }
-                price.text = total.toString()
-          } else {
-                total = 10.0
-                total += 4.75
-                if(checked1.isChecked){
-                    checked1.toggle()
-                    total=14.75
-                }
-                if(checked2.isChecked){
-                    checked2.toggle()
-                    total=14.75
-                }
-                if(checked3.isChecked){
-                    checked3.toggle()
-                    total=14.75
-                }
-                if(checked4.isChecked){
-                    checked4.toggle()
-                    total=14.75
-                }
-                price.text = total.toString()
-            }
-
+            checkRadioButtons(radioGroup,checked1.isChecked,checked2.isChecked,checked3.isChecked,checked4.isChecked,price)
 
             checked1.setOnCheckedChangeListener { buttonView, isChecked ->
-                total += 0.0
-                price.text = total.toString()
+                checkRadioButtons(radioGroup,checked1.isChecked,checked2.isChecked,checked3.isChecked,checked4.isChecked,price)
             }
             checked2.setOnCheckedChangeListener { buttonView, isChecked ->
-                total += 0.0
-                price.text = total.toString()
+                checkRadioButtons(radioGroup,checked1.isChecked,checked2.isChecked,checked3.isChecked,checked4.isChecked,price)
             }
             checked3.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (checked3.isChecked) {
-                    println(checked4.isChecked)
-                    total += 2.5
-                    price.text= total.toString()
-                }
-                if (!checked3.isChecked) {
-                    println(checked4.isChecked)
-                    total -= 2.5
-                    price.text= total.toString()
-                }
+                checkRadioButtons(radioGroup,checked1.isChecked,checked2.isChecked,checked3.isChecked,checked4.isChecked,price)
             }
             checked4.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (checked4.isChecked) {
-                     total += 2.5
-                     price.text= total.toString()
+                checkRadioButtons(radioGroup,checked1.isChecked,checked2.isChecked,checked3.isChecked,checked4.isChecked,price)
             }
-                if (!checked4.isChecked) {
-                    total -= 2.5
-                    price.text= total.toString()
-
-                }
-            }
-
 
             seek?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                     val seekBarTexti: TextView = findViewById(R.id.num)
                     seekBarTexti.text = "Number: $p1"
-                    lastTotal = total.times(p1)
+                    var lastTotal = total.times(p1)
                     number= p1
                     price.text = lastTotal.toString()
                 }
                 override fun onStartTrackingTouch(seek: SeekBar) {
                 }
                 override fun onStopTrackingTouch(seek: SeekBar) {
-
                 }
             })
+        }
+    }
+
+    fun checkCheckBoxes(checkBox1State:Boolean,checkBox2State:Boolean,checkBox3State:Boolean,checkBox4State:Boolean){
+        if(checkBox1State){
+            total+= 0.0
+        }
+        if(checkBox2State){
+            total+= 0.0
+        }
+        if(checkBox3State){
+            total+= 2.5;
+        }
+        if(checkBox4State){
+            total+= 2.5;
+        }
+    }
+
+    fun checkRadioButtons(radioGroup: RadioGroup, checkBox1State:Boolean,checkBox2State:Boolean,checkBox3State:Boolean,checkBox4State:Boolean,price:TextView){
+        var selectedRadioButton: RadioButton = findViewById(radioGroup.checkedRadioButtonId)
+        var radioButtonText = selectedRadioButton.text
+        println(radioButtonText)
+        when(radioButtonText){
+            "Tall" -> {
+                println("gets in case 1")
+                total = 10.0
+                checkCheckBoxes(checkBox1State, checkBox2State, checkBox3State, checkBox4State)
+                price.text = total.toString()
+            }
+            "Grande  +2.5"->{
+                println("gets in case 2")
+                total = 12.5
+                checkCheckBoxes(checkBox1State, checkBox2State, checkBox3State, checkBox4State)
+                price.text = total.toString()
+            }
+            "Venti  +4.75"->{
+                println("gets in case 3")
+                total = 14.75
+                checkCheckBoxes(checkBox1State, checkBox2State, checkBox3State, checkBox4State)
+                price.text = total.toString()
+            }
         }
     }
 
@@ -154,11 +111,6 @@ class MainActivity : AppCompatActivity() {
 
         var name: EditText=findViewById(R.id.customerName)
         val price: TextView = findViewById(R.id.price)
-
-        //test
-        for( item in checkedExtras  ){
-            println(item)
-        }
 
         if(name.text.isEmpty() || name.text.startsWith(" ") || name.text.length<3 || number == 0){
             if(number == 0){
@@ -174,11 +126,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }else {
-            var checked1: CheckBox = findViewById(R.id.sugarbutton)
-            var checked2: CheckBox = findViewById(R.id.creambutton)
-            var checked3: CheckBox = findViewById(R.id.nutbutton)
-            var checked4: CheckBox = findViewById(R.id.mintbutton)
-
             val checkBoxList = arrayListOf<CheckBox>()
             checkBoxList.add(checked1)
             checkBoxList.add(checked2)
@@ -198,9 +145,5 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("totalPrice", price.text)
             startActivity(intent)
         }
-
-
-
     }
 }
-
