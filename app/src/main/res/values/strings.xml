@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">CoffeeApp</string>
+    <string name="empty_order_title">You don\'t want any? </string>
+    <string name="empty_order_message">please choose how many coffee you want</string>
+    <string name="empty_name_et_title">Enter your name</string>
+    <string name="empty_name_et_message">please enter your name</string>
+
     <color name="background">#6989C9</color>
     <color name="btnColor">#E27D31</color>
     <color name="lightText">#4c4c4c</color>

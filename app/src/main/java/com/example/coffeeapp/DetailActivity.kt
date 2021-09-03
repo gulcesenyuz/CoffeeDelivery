@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.TextView
 
-class SecondPage : AppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
+     var extraIngredients =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second_page)
@@ -23,9 +24,16 @@ class SecondPage : AppCompatActivity() {
         val total=intent.getStringExtra("totalPrice")
         val num=intent.getStringExtra("number")
 
+        if (extras != null) {
+            for (extra in extras){
+                extraIngredients= "$extraIngredients $extra"
+            }
+        }
+
+
         name.text=customer
         drinkSize.text=size
-        extra.text= extras.toString()
+        extra.text= extraIngredients
         priceTotal.text=total
         numDrink.text=num
     }
