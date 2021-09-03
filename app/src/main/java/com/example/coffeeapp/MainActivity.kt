@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -18,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
         val price: TextView = findViewById(R.id.price)
@@ -36,166 +36,128 @@ class MainActivity : AppCompatActivity() {
                 total += 0.0
                 if(checked1.isChecked){
                     checked1.toggle()
-
                     total=10.0
-
                 }
                 if(checked2.isChecked){
                     checked2.toggle()
                     total=10.0
-
-
                 }
                 if(checked3.isChecked){
                     checked3.toggle()
                     total=10.0
-
-
                 }
                 if(checked4.isChecked){
                     checked4.toggle()
                     total=10.0
-
-
                 }
-
-
                 price.text = total.toString()
-                //TODO
-            } else if (checkedId == R.id.grandebutton) {
+                            }
+            else if (checkedId == R.id.grandebutton) {
                 total = 10.0
                 total += 2.5
                 if(checked1.isChecked){
                     checked1.toggle()
-
                     total=12.5
-
                 }
                 if(checked2.isChecked){
                     checked2.toggle()
                     total=12.5
-
-
                 }
                 if(checked3.isChecked){
                     checked3.toggle()
                     total=12.5
-
-
                 }
                 if(checked4.isChecked){
                     checked4.toggle()
                     total=12.5
-
-
                 }
-
                 price.text = total.toString()
-
-
           } else {
+                total = 10.0
+                total += 4.75
                 if(checked1.isChecked){
                     checked1.toggle()
-
                     total=14.75
-
                 }
                 if(checked2.isChecked){
                     checked2.toggle()
                     total=14.75
-
-
                 }
                 if(checked3.isChecked){
                     checked3.toggle()
                     total=14.75
-
-
                 }
                 if(checked4.isChecked){
                     checked4.toggle()
                     total=14.75
-
-
                 }
-
-
                 price.text = total.toString()
-
             }
 
 
             checked1.setOnCheckedChangeListener { buttonView, isChecked ->
-            checkedExtras.add(checked1.text as String)
+                if (checked1.isChecked){
+                    checkedExtras.add(checked1.text as String)
+                }else if (!checked1.isChecked){
+                    if (checkedExtras.contains(checked1.text as String)){
+                        checkedExtras.remove(checked1.text as String)
+                    }
+                }else print("smtsdsd")
+
                 total += 0.0
-                println("3: $total")
-
-                println(total)
                 price.text = total.toString()
-
             }
             checked2.setOnCheckedChangeListener { buttonView, isChecked ->
-                checkedExtras.add(checked2.text as String)
+                if (checked2.isChecked){
+                    checkedExtras.add(checked2.text as String)
+                }else if (!checked2.isChecked){
+                    if (checkedExtras.contains(checked2.text as String)){
+                        checkedExtras.remove(checked2.text as String)
+                    }
+                }else print("smtsdsd")
 
                 total += 0.0
-                println("3: $total")
-
-                println(total)
                 price.text = total.toString()
-
             }
             checked3.setOnCheckedChangeListener { buttonView, isChecked ->
-                checkedExtras.add(checked3.text as String)
-
-                println("durum : " + checked4.isChecked)
+                if (checked3.isChecked){
+                    checkedExtras.add(checked3.text as String)
+                }else if (!checked3.isChecked){
+                    if (checkedExtras.contains(checked3.text as String)){
+                        checkedExtras.remove(checked3.text as String)
+                    }
+                }else print("smtsdsd")
 
                 if (checked3.isChecked) {
                     println(checked4.isChecked)
-
                     total += 2.5
-                    println("ekle: $total")
-
-                    println(total)
                     price.text= total.toString()
-
                 }
                 if (!checked3.isChecked) {
                     println(checked4.isChecked)
                     total -= 2.5
-                    println("cıkar: $total")
-
-                    println(total)
                     price.text= total.toString()
-
                 }
-
-
             }
             checked4.setOnCheckedChangeListener { buttonView, isChecked ->
                 println("durum : " + checked4.isChecked)
-                checkedExtras.add(checked4.text as String)
+                if (checked4.isChecked){
+                    checkedExtras.add(checked4.text as String)
+                }else if (!checked4.isChecked){
+                    if (checkedExtras.contains(checked4.text as String)){
+                        checkedExtras.remove(checked4.text as String)
+                    }
+                }else print("smtsdsd")
 
-                 if (checked4.isChecked) {
-                     println(checked4.isChecked)
-
+                    if (checked4.isChecked) {
                      total += 2.5
-                println("ekle: $total")
-
-                println(total)
-                price.text= total.toString()
-
+                     price.text= total.toString()
             }
                 if (!checked4.isChecked) {
-                    println(checked4.isChecked)
                     total -= 2.5
-                    println("cıkar: $total")
-
-                    println(total)
                     price.text= total.toString()
 
                 }
-
-
             }
 
 
@@ -205,45 +167,53 @@ class MainActivity : AppCompatActivity() {
                     seekBarTexti.setText("Number: $p1")
                     lastTotal = total.times(p1)
                     number= p1
-
                     price.text = lastTotal.toString()
-
-
                 }
-
                 override fun onStartTrackingTouch(seek: SeekBar) {
                 }
-
                 override fun onStopTrackingTouch(seek: SeekBar) {
 
                 }
             })
-
-
         }
-
-
     }
 
     fun submit(view: View){
         val radioGroup: RadioGroup = findViewById(R.id.radioGroup)
         val selectedOption: Int = radioGroup.checkedRadioButtonId
+        radioButton = findViewById(selectedOption)
+
         var name: EditText=findViewById(R.id.customerName)
         val price: TextView = findViewById(R.id.price)
 
-        val intent= Intent(applicationContext, SecondPage::class.java)
-        radioButton = findViewById(selectedOption)
-        for( item in checkedExtras ){
-            print("5555    ")
+        //test
+        for( item in checkedExtras  ){
             println(item)
+        }
+
+        if(name.text.isEmpty() || name.text.startsWith(" ") || name.text.length<3 || number == 0){
+            if(number == 0){
+                val alertDialogg= AlertDialog.Builder(this)
+                alertDialogg.setTitle("You don't want any? ")
+                alertDialogg.setMessage("please choose how many coffee you want")
+                alertDialogg.show()
+            }else {
+                val alertDialogg= AlertDialog.Builder(this)
+                alertDialogg.setTitle("Enter your name")
+                alertDialogg.setMessage("please enter your name")
+                alertDialogg.show()
+            }
+
+        }else {
+            intent.putExtra("number", number.toString())
+            intent.putExtra("customer_name", name.text.toString())
+            intent.putExtra("selectedSize", radioButton.text)
+            intent.putExtra("selectedExtras", checkedExtras)
+            intent.putExtra("totalPrice", price.text)
+
+            val intent= Intent(applicationContext, SecondPage::class.java)
 
         }
-        intent.putExtra("customer_name", name.text.toString())
-        intent.putExtra("selectedSize", radioButton.text)
-        intent.putExtra("selectedExtras", checkedExtras)
-        println("number:  ${number}")
-        intent.putExtra("totalPrice", price.text)
-        intent.putExtra("number", number.toString())
 
         startActivity(intent)
 
