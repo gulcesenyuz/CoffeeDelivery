@@ -212,10 +212,10 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("totalPrice", price.text)
 
             val intent= Intent(applicationContext, SecondPage::class.java)
-
+            startActivity(intent)
         }
 
-        startActivity(intent)
+
 
     }
 }
