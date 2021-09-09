@@ -126,11 +126,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }else {
-            val checkBoxList = arrayListOf<CheckBox>()
-            checkBoxList.add(checked1)
-            checkBoxList.add(checked2)
-            checkBoxList.add(checked3)
-            checkBoxList.add(checked4)
+            val checkBoxList = listOf(checked1,checked2,checked3,checked4)
 
             checkBoxList.forEach{
                 if (it.isChecked){
